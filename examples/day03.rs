@@ -6,7 +6,7 @@ fn create_tree_field(input: &str) -> Vec<Vec<bool>> {
     result
 }
 
-fn count_n_trees_hit(field: &Vec<Vec<bool>>, stride: &Stride) -> usize {
+fn count_n_trees_hit(field: &[Vec<bool>], stride: &Stride) -> usize {
     // Get the number of rows and columns in the field
     let nrows = field.len();
     let ncols = field[0].len();
@@ -20,7 +20,7 @@ fn count_n_trees_hit(field: &Vec<Vec<bool>>, stride: &Stride) -> usize {
     col_indices
         .iter()
         .zip(row_indices.iter())
-        .filter(|(&col, &row)| field[row][col] == true)
+        .filter(|(&col, &row)| field[row][col])
         .count()
 }
 
