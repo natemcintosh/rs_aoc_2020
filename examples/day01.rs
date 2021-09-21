@@ -1,11 +1,11 @@
 use itertools::Itertools;
 
-fn solve(inputs: &[u32], n_entries: usize) -> u32 {
+fn solve(inputs: &[usize], n_entries: usize) -> usize {
     // Go through all length `n_entries` combinations of inputs, if the sum is 2020,
     // return the product of those numbers.
     for combo in inputs.iter().combinations(n_entries) {
-        if combo.iter().fold(0u32, |acc, &&item| acc + item) == 2020 {
-            return combo.iter().map(|&&i| i as u32).product();
+        if combo.iter().copied().sum::<usize>() == 2020 {
+            return combo.iter().copied().product();
         }
     }
     panic!("Did not find numbers summing to 2020")
@@ -13,7 +13,7 @@ fn solve(inputs: &[u32], n_entries: usize) -> u32 {
 
 fn main() {
     // Read in the file of ints, which has one int per line
-    let input_ints: Vec<u32> = std::fs::read_to_string("inputs/day01.txt")
+    let input_ints: Vec<usize> = std::fs::read_to_string("inputs/day01.txt")
         .expect("Could not read day01 input file")
         .lines()
         .map(|line| line.parse().expect("Could not parse line into int"))
