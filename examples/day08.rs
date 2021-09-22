@@ -1,13 +1,13 @@
 use std::collections::{HashMap, HashSet};
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 enum Instruction {
     Acc,
     Jmp,
     Nop,
 }
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 struct Rule {
     instr: Instruction,
     arg: i64,
@@ -91,6 +91,48 @@ fn main_loop(input: &HashMap<i64, Rule>) -> LoopResult {
     }
 }
 
+fn flip_code(code: &HashMap<i64, Rule>, idx: i64) -> HashMap<i64, Rule> {
+    let r = code.get(&idx).expect("Gone to a bad index");
+    let new_instr = match r.instr {
+        Instruction::Jmp => Instruction::Nop,
+        Instruction::Nop => Instruction::Jmp,
+        Instruction::Acc => panic!("Shouldn't swap an acc"),
+    };
+    let new_rule = Rule {
+        instr: new_instr,
+        arg: r.arg,
+    };
+
+    let mut new = clone_hashmap(code);
+    if let Some(x) = new.get_mut(&idx) {
+        *x = new_rule;
+    }
+
+    new
+}
+
+fn clone_hashmap<K: Clone, V: Clone>(data: &HashMap<K, V>) -> HashMap<K, V> {
+    data.clone()
+}
+
+fn part2(code: &HashMap<i64, Rule>) -> i64 {
+    // Find the keys of `code` that are nop or jmp
+    let nops_or_jmps: Vec<i64> = code
+        .iter()
+        .filter(|(_, &v)| (v.instr == Instruction::Jmp) || (v.instr == Instruction::Nop))
+        .map(|(&k, _)| k)
+        .collect();
+
+    // For each location, flip the instruction and run the main loop
+    nops_or_jmps
+        .iter()
+        .map(|&idx| flip_code(code, idx))
+        .map(|x| main_loop(&x))
+        .find(|x| x.success)
+        .expect("Could not find a successful loop")
+        .accumulator
+}
+
 fn main() {
     // Read in the day 8 input
     let read_time = std::time::Instant::now();
@@ -114,6 +156,15 @@ fn main() {
     );
 
     println!("First Puzzle: {:?}", part1_solution.accumulator);
+
+    // Time and run part 2
+    let part2_time = std::time::Instant::now();
+    let part2_solution = part2(&rules_mapped);
+    println!(
+        "Part 2 took {:.6} microseconds",
+        part2_time.elapsed().as_micros()
+    );
+    println!("Second Puzzle: {:?}", part2_solution);
 }
 
 #[test]
@@ -187,4 +238,21 @@ acc +6";
     let input_mapped = (0_i64..).zip(input.into_iter()).collect::<HashMap<_, _>>();
     let got = main_loop(&input_mapped);
     assert_eq!(got.accumulator, 5);
+}
+
+#[test]
+fn test_part2() {
+    let input_str = "nop +0
+acc +1
+jmp +4
+acc +3
+jmp -3
+acc -99
+acc +1
+jmp -4
+acc +6";
+    let input: Vec<Rule> = input_str.lines().map(Rule::new).collect();
+    let input_mapped = (0_i64..).zip(input.into_iter()).collect::<HashMap<_, _>>();
+    let got = part2(&input_mapped);
+    assert_eq!(got, 8);
 }
