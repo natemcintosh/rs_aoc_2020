@@ -8,11 +8,7 @@ fn part2(groups: &[&str]) -> usize {
         .map(|&g| {
             g.lines()
                 .map(|person| person.chars().collect::<HashSet<char>>())
-                .reduce(|acc, person| {
-                    acc.intersection(&person)
-                        .copied()
-                        .collect::<HashSet<_>>()
-                })
+                .reduce(|acc, person| acc.intersection(&person).copied().collect::<HashSet<_>>())
                 .expect("Could not calculate intersection of sets")
                 .len()
         })
