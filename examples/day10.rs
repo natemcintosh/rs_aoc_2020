@@ -3,7 +3,7 @@ use counter::Counter;
 fn put_in_world(starting_ints: &mut Vec<usize>) {
     let max = starting_ints
         .iter()
-        .reduce(|a, b| &a.max(b))
+        .reduce(|a, b| a.max(b))
         .expect("Could not find a maximum");
 
     let to_add = vec![0, *max + 3];

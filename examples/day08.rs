@@ -136,12 +136,14 @@ fn part2(code: &HashMap<i64, Rule>) -> i64 {
 fn main() {
     // Read in the day 8 input
     let read_time = std::time::Instant::now();
-    let rules: Vec<Rule> = std::fs::read_to_string("inputs/day08.txt")
-        .expect("Could not read day 8 input file")
-        .lines()
-        .map(Rule::new)
-        .collect();
-    let rules_mapped = (0_i64..).zip(rules.into_iter()).collect::<HashMap<_, _>>();
+    let rules_mapped = (0_i64..)
+        .zip(
+            std::fs::read_to_string("inputs/day08.txt")
+                .expect("Could not read day 8 input file")
+                .lines()
+                .map(Rule::new),
+        )
+        .collect::<HashMap<_, _>>();
     println!(
         "Constructing operations {:.6} microseconds",
         read_time.elapsed().as_micros()

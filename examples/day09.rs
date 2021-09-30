@@ -6,9 +6,9 @@ fn number_is_bad(window: &[usize], number: usize) -> Option<usize> {
         .combinations(2)
         .all(|combo| combo.into_iter().sum::<usize>() != number)
     {
-        return Some(number);
+        Some(number)
     } else {
-        return None;
+        None
     }
 }
 
