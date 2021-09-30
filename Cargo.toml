@@ -8,3 +8,32 @@ edition = "2018"
 [dependencies]
 itertools = "0.10.0"
 counter = "0.5.2"
+
+
+[[example]]
+name = "day01"
+test = true
+
+[[example]]
+name = "day02"
+test = true
+
+[[example]]
+name = "day03"
+test = true
+
+[[example]]
+name = "day06"
+test = true
+
+[[example]]
+name = "day08"
+test = true
+
+[[example]]
+name = "day09"
+test = true
+
+[[example]]
+name = "day10"
+test = true
