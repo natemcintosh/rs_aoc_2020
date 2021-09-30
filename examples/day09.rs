@@ -21,10 +21,15 @@ fn part1(ints: &[usize], preamble_size: usize) -> usize {
 }
 
 fn part2(ints: &[usize], to_sum_to: usize) -> usize {
+    // Iterate over all the possible sizes of the window
     for window_size in 2..ints.len() {
+        // Search for some continuous set of numbers that sums to `to_sum_to`
         let good_window = ints
             .windows(window_size)
             .find(|&w| w.iter().sum::<usize>() == to_sum_to);
+
+        // If they did sum to `to_sum_to`, then find the min, and the max, and return
+        // their sum
         if let Some(winow) = good_window {
             let min = winow
                 .iter()
