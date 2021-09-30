@@ -29,22 +29,24 @@ fn part2(ints: &[usize]) -> usize {
     for i in 0..=max_idx {
         for j in 1..=3 {
             // If we're over the end, skip
-            if i+j >= max_idx {
+            if i + j >= max_idx {
                 continue;
             }
 
             // How big is the joltage gap from item i to item i+j
-            let joltage_diff = ints[i+j] - ints[i];
+            let joltage_diff = ints[i + j] - ints[i];
 
             // If it's > 3, not reachable
             // It it's <= 3, we an reach the item at i+j from i
             // Add the number of ways to get to item i to the number at i+j
             if joltage_diff <= 3 {
-                different_paths[i+j] += different_paths[i];
+                different_paths[i + j] += different_paths[i];
             }
         }
     }
-    *different_paths.last().expect("Cannot get last item from different_paths")
+    *different_paths
+        .last()
+        .expect("Cannot get last item from different_paths")
 }
 
 fn main() {
