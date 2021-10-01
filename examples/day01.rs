@@ -34,13 +34,14 @@ fn main() {
     );
 
     let part2_time = std::time::Instant::now();
+    // Solve for the second puzzle
     let part2_soln = solve(&input_ints, 3);
     println!(
         "Part 2 took {:.6} microseconds",
         part2_time.elapsed().as_micros()
     );
 
-    // Solve for the second puzzle
+    println!();
     println!("First puzzle: {}", part1_soln);
     println!("Second puzzle: {}", part2_soln);
 }

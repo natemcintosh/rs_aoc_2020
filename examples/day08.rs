@@ -165,6 +165,7 @@ fn main() {
         part2_time.elapsed().as_micros()
     );
 
+    println!();
     println!("First Puzzle: {:?}", part1_solution.accumulator);
     println!("Second Puzzle: {:?}", part2_solution);
 }
