@@ -30,14 +30,25 @@ struct Stride {
 }
 
 fn main() {
+    let setup_time = std::time::Instant::now();
     let input_str =
         std::fs::read_to_string("inputs/day03.txt").expect("Could not read day 3 input");
     let field = create_tree_field(input_str.as_str());
+    println!(
+        "Setup took {:.6} microseconds",
+        setup_time.elapsed().as_micros()
+    );
 
+    let part1_time = std::time::Instant::now();
     // Solve for the first puzzle
     let part1_stride = Stride { right: 3, down: 1 };
-    println!("First puzzle: {}", count_n_trees_hit(&field, &part1_stride));
+    let part1_soln = count_n_trees_hit(&field, &part1_stride);
+    println!(
+        "Part 1 took {:.6} microseconds",
+        part1_time.elapsed().as_micros()
+    );
 
+    let part2_time = std::time::Instant::now();
     let part2_strides = vec![
         Stride { right: 1, down: 1 },
         Stride { right: 3, down: 1 },
@@ -49,6 +60,12 @@ fn main() {
         .iter()
         .map(|s| count_n_trees_hit(&field, s))
         .product();
+    println!(
+        "Part 2 took {:.6} microseconds",
+        part2_time.elapsed().as_micros()
+    );
+
+    println!("First puzzle: {}", part1_soln);
     println!("Second puzzle: {}", part2_solution);
 }
 
