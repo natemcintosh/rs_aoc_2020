@@ -135,7 +135,7 @@ fn part2(code: &HashMap<i64, Rule>) -> i64 {
 
 fn main() {
     // Read in the day 8 input
-    let read_time = std::time::Instant::now();
+    let setup_time = std::time::Instant::now();
     let rules_mapped = (0_i64..)
         .zip(
             std::fs::read_to_string("inputs/day08.txt")
@@ -146,7 +146,7 @@ fn main() {
         .collect::<HashMap<_, _>>();
     println!(
         "Constructing operations {:.6} microseconds",
-        read_time.elapsed().as_micros()
+        setup_time.elapsed().as_micros()
     );
 
     // Do part 1
@@ -157,8 +157,6 @@ fn main() {
         part1_time.elapsed().as_micros()
     );
 
-    println!("First Puzzle: {:?}", part1_solution.accumulator);
-
     // Time and run part 2
     let part2_time = std::time::Instant::now();
     let part2_solution = part2(&rules_mapped);
@@ -166,6 +164,8 @@ fn main() {
         "Part 2 took {:.6} microseconds",
         part2_time.elapsed().as_micros()
     );
+
+    println!("First Puzzle: {:?}", part1_solution.accumulator);
     println!("Second Puzzle: {:?}", part2_solution);
 }
 
