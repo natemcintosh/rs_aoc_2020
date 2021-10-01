@@ -26,7 +26,7 @@ fn parse_input(grid: &str) -> Vec<Vec<Seat>> {
 }
 
 fn main() {
-    let grid = parse_input(
+    let _grid = parse_input(
         std::fs::read_to_string("inputs/day11.txt")
             .expect("Could not read day 11 input")
             .as_str(),
