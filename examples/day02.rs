@@ -106,16 +106,34 @@ fn part2_pw_is_valid(pw: &Password) -> bool {
 }
 
 fn main() {
+    let setup_time = std::time::Instant::now();
     // Read in the input
     let input =
         std::fs::read_to_string("inputs/day02.txt").expect("Could not read day02 input file");
     let input_lines: Vec<Password> = input.as_str().lines().map(|l| new_password(l)).collect();
+    println!(
+        "Setup took {:.6} microseconds",
+        setup_time.elapsed().as_micros()
+    );
 
+    let part1_time = std::time::Instant::now();
     // Solve for the first puzzle
-    println!("First puzzle: {}", part1(&input_lines));
+    let part1_soln = part1(&input_lines);
+    println!(
+        "Part 1 took {:.6} microseconds",
+        part1_time.elapsed().as_micros()
+    );
 
+    let part2_time = std::time::Instant::now();
     // Solve the second puzzle
-    println!("First puzzle: {}", part2(&input_lines));
+    let part2_soln = part2(&input_lines);
+    println!(
+        "Part 2 took {:.6} microseconds",
+        part2_time.elapsed().as_micros()
+    );
+
+    println!("First puzzle: {}", part1_soln);
+    println!("First puzzle: {}", part2_soln);
 }
 
 #[test]
