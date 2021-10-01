@@ -16,18 +16,34 @@ fn part2(groups: &[&str]) -> usize {
 }
 
 fn main() {
+    let setup_time = std::time::Instant::now();
     let input_str =
         std::fs::read_to_string("inputs/day06.txt").expect("Could not read day 6 input file");
     let groups: Vec<&str> = input_str.as_str().split("\n\n").collect();
+    println!(
+        "Setup took {:.6} microseconds",
+        setup_time.elapsed().as_micros()
+    );
 
+    let part1_time = std::time::Instant::now();
     let part1_solution: usize = groups
         .iter()
         .map(|&g| g.replace("\n", ""))
         .map(|g| g.chars().unique().count())
         .sum();
-    println!("First puzzle {:?}", part1_solution);
+    println!(
+        "Part 1 took {:.6} microseconds",
+        part1_time.elapsed().as_micros()
+    );
 
+    let part2_time = std::time::Instant::now();
     let part2_solution = part2(&groups);
+    println!(
+        "Part 2 took {:.6} microseconds",
+        part2_time.elapsed().as_micros()
+    );
+
+    println!("First puzzle {:?}", part1_solution);
     println!("Second puzzle: {}", part2_solution);
 }
 
