@@ -76,6 +76,7 @@ fn main() {
         part2_time.elapsed().as_micros()
     );
 
+    println!();
     println!("First Puzzle: {:?}", part1_soln);
     println!("Second Puzzle: {:?}", part2_soln);
 }

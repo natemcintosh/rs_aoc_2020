@@ -12,18 +12,38 @@ fn solve(inputs: &[usize], n_entries: usize) -> usize {
 }
 
 fn main() {
+    let setup_time = std::time::Instant::now();
+
     // Read in the file of ints, which has one int per line
     let input_ints: Vec<usize> = std::fs::read_to_string("inputs/day01.txt")
         .expect("Could not read day01 input file")
         .lines()
         .map(|line| line.parse().expect("Could not parse line into int"))
         .collect();
+    println!(
+        "Setup took {:.6} microseconds",
+        setup_time.elapsed().as_micros()
+    );
 
+    let part1_time = std::time::Instant::now();
     // Solve for the first puzzle
-    println!("First puzzle: {}", solve(&input_ints, 2));
+    let part1_soln = solve(&input_ints, 2);
+    println!(
+        "Part 1 took {:.6} microseconds",
+        part1_time.elapsed().as_micros()
+    );
 
+    let part2_time = std::time::Instant::now();
     // Solve for the second puzzle
-    println!("Second puzzle: {}", solve(&input_ints, 3));
+    let part2_soln = solve(&input_ints, 3);
+    println!(
+        "Part 2 took {:.6} microseconds",
+        part2_time.elapsed().as_micros()
+    );
+
+    println!();
+    println!("First puzzle: {}", part1_soln);
+    println!("Second puzzle: {}", part2_soln);
 }
 
 #[test]

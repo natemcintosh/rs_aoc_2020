@@ -46,12 +46,16 @@ fn part2(ints: &[usize], to_sum_to: usize) -> usize {
 }
 
 fn main() {
-    println!("Hello world");
+    let setup_time = std::time::Instant::now();
     let ints: Vec<usize> = std::fs::read_to_string("inputs/day09.txt")
         .expect("Could not read day 9 input")
         .lines()
         .map(|l| l.parse().expect("Could not parse into usize"))
         .collect();
+    println!(
+        "Setup took {:.6} microseconds",
+        setup_time.elapsed().as_micros()
+    );
 
     let part1_time = std::time::Instant::now();
     let part1_soln = part1(&ints, 25);
@@ -67,6 +71,7 @@ fn main() {
         part2_time.elapsed().as_micros()
     );
 
+    println!();
     println!("First Puzzle: {:?}", part1_soln);
     println!("Second Puzzle: {:?}", part2_soln);
 }
